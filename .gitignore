@@ -1,0 +1,22 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build output
+dist/
+dist-ssr/
+
+# Editor/OS
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.vscode/
+
+# Note: .env is included in this project with credentials already set.
+# If you fork/share this repo publicly, add .env back here and set credentials separately.
+# .env
+# .env.local
+# .env.*.local
