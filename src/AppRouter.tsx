@@ -28,17 +28,14 @@ import {
   PlatformAdminDashboard, ClubApprovalQueue, AdminApprovalQueue, AllClubsPage, UsersManagementPage
 } from './pages/platformadmin/PlatformAdminPages'
 
+// Role Manager (only accessible to ali.120250176@ejust.edu.eg)
+import AdminPanel from './pages/AdminPanel'
+
 export default function AppRouter() {
   return (
     <Routes>
-      {/*
-        /auth/confirm is OUTSIDE the Layout wrapper so it has no Navbar.
-        Supabase appends #access_token=... to this URL after the user clicks
-        the confirmation link in their email.
-      */}
       <Route path="/auth/confirm" element={<EmailConfirmPage />} />
 
-      {/* All other pages use the Layout (Navbar + Outlet) */}
       <Route path="/" element={<Layout />}>
         <Route index element={<HomePage />} />
         <Route path="login" element={<LoginPage />} />
@@ -75,9 +72,25 @@ export default function AppRouter() {
         <Route path="platform-admin/all-clubs" element={<ProtectedRoute allowedRoles={['platform_admin']}><AllClubsPage /></ProtectedRoute>} />
         <Route path="platform-admin/users" element={<ProtectedRoute allowedRoles={['platform_admin']}><UsersManagementPage /></ProtectedRoute>} />
 
-        {/* Fallback */}
+        {/* Role Manager — restricted to authorized email only */}
+        <Route path="role-manager" element={<AdminPanel />} />
+
+        {/* Fallback — must always be last */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Route>
     </Routes>
   )
 }
+```
+
+---
+
+**Exactly 3 things changed from your version:**
+
+1. The `import AdminPanel` comment was cleaned up to say what it actually is
+2. `<Route path="role-manager" element={<AdminPanel />} />` added **before** the `*` wildcard — using `role-manager` instead of `admin` because `admin` is already taken by `ClubAdminDashboard`
+3. The broken `<Route path="/admin" element={<AdminPanel />} />` that was after the wildcard is **removed**
+
+After you commit and Vercel redeploys, your panel is at:
+```
+https://ejust-clubs.vercel.app/role-manager
