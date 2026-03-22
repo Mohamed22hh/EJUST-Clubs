@@ -9,7 +9,7 @@ import RegisterPage from './pages/auth/RegisterPage'
 import ClubAdminRegisterPage from './pages/auth/ClubAdminRegisterPage'
 import EmailConfirmPage from './pages/auth/EmailConfirmPage'
 
-// Student
+// Student 
 import StudentDashboard from './pages/student/StudentDashboard'
 import ClubsPage from './pages/student/ClubsPage'
 import ClubProfilePage from './pages/student/ClubProfilePage'
